@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiểm tra tháng và năm</title>
+<style>
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card {
+    width: min(600px, 92%);
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+}
+h1 { text-align: center; margin-top: 0; color: #1e3a8a; }
+.subtitle { text-align: center; color: #64748b; margin-bottom: 25px; }
+.form-group { margin-bottom: 18px; }
+label { display: block; margin-bottom: 7px; font-weight: bold; }
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 16px;
+}
+button {
+    width: 100%;
+    padding: 13px;
+    border: 0;
+    border-radius: 9px;
+    background: #2563eb;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+button:hover { background: #1d4ed8; }
+#result {
+    display: none;
+    margin-top: 22px;
+    padding: 18px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    line-height: 1.7;
+}
+.error { color: #dc2626; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Kiểm tra tháng và năm</h1>
+    <p class="subtitle">Chương trình Switch Case</p>
+
+    <div class="form-group">
+        <label for="thang">Nhập tháng:</label>
+        <input type="number" id="thang" min="1" max="12" placeholder="Ví dụ: 7">
+    </div>
+
+    <div class="form-group">
+        <label for="nam">Nhập năm:</label>
+        <input type="number" id="nam" placeholder="Ví dụ: 2028">
+    </div>
+
+    <button onclick="kiemTra()">Kiểm tra</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function kiemTra() {
+    const thang = Number(document.getElementById("thang").value);
+    const nam = Number(document.getElementById("nam").value);
+    const result = document.getElementById("result");
+
+    result.style.display = "block";
+
+    if (!thang || !nam) {
+        result.innerHTML = '<span class="error">Vui lòng nhập đầy đủ tháng và năm.</span>';
+        return;
+    }
+
+    let soNgay = "";
+    switch (thang) {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            soNgay = `Tháng ${thang} có 31 ngày`;
+            break;
+
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            soNgay = `Tháng ${thang} có 30 ngày`;
+            break;
+
+        case 2:
+            soNgay = `Tháng ${thang} có 28 ngày nếu năm không nhuận, 29 ngày nếu là năm nhuận`;
+            break;
+
+        default:
+            result.innerHTML = `<span class="error">Tháng ${thang} không tồn tại.</span>`;
+            return;
+    }
+
+    let thongTinThang = "";
+    switch (thang) {
+        case 1:
+            thongTinThang = "Tháng này là tháng giêng";
+            break;
+        case 7:
+            thongTinThang = "Tháng này là tháng cô hồn";
+            break;
+        case 10:
+            thongTinThang = "Tháng này là tháng của Halloween";
+            break;
+        case 12:
+            thongTinThang = "Tháng này là tháng của Giáng Sinh";
+            break;
+    }
+
+    let thongTinNam = "";
+    switch (nam) {
+        case 2026:
+            thongTinNam = "Năm nay là năm con chó";
+            break;
+        case 2027:
+            thongTinNam = "Năm nay là năm con mèo";
+            break;
+        case 2028:
+            thongTinNam = "Năm nay là năm con chuột";
+            break;
+        case 2029:
+            thongTinNam = "Năm nay là năm con trâu";
+            break;
+        case 2030:
+            thongTinNam = "Năm nay là năm con hổ";
+            break;
+        case 2031:
+            thongTinNam = "Năm nay là năm con thỏ";
+            break;
+        case 2032:
+            thongTinNam = "Năm nay là năm con rồng";
+            break;
+        default:
+            thongTinNam = "Năm nay là năm con gì thì bạn tự tìm hiểu đi nhé";
+    }
+
+    let namNhuan = "";
+    switch (nam) {
+        case 2028:
+        case 2032:
+            namNhuan = "Đây là năm nhuận";
+            break;
+        case 2026:
+        case 2027:
+        case 2029:
+        case 2030:
+        case 2031:
+            namNhuan = "Đây là năm không nhuận";
+            break;
+        default:
+            namNhuan = "Bạn tự tìm hiểu nhé";
+    }
+
+    result.innerHTML = `
+        <strong>Kết quả:</strong><br>
+        ${soNgay}<br>
+        ${thongTinThang ? thongTinThang + "<br>" : ""}
+        ${thongTinNam}<br>
+        ${namNhuan}
+    `;
+}
+</script>
+
+</body>
+</html>
